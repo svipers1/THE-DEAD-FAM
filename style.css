@@ -1,0 +1,331 @@
+/* ===== General Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar .logo {
+  color: #ff4444;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.navbar ul li a:hover {
+  color: #ff4444;
+}
+
+/* ===== Hero Section (Home Page) ===== */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #222, #000);
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.hero h1 span {
+  color: #ff4444;
+}
+.hero p {
+  margin-bottom: 20px;
+}
+.hero button, .btn {
+  background: #ff4444;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+}
+.hero button:hover, .btn:hover {
+  background: #ff2222;
+  transform: scale(1.05);
+}
+.btn.secondary {
+  background: #444;
+}
+.btn.secondary:hover {
+  background: #666;
+  transform: scale(1.05);
+}
+
+/* ===== Sections ===== */
+.section {
+  padding: 60px 20px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+.section h2 {
+  color: #ff4444;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+/* ===== Download Cards ===== */
+.download-card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.download-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 68, 68, 0.4);
+}
+.download-card p {
+  margin-bottom: 15px;
+  color: #ccc;
+  font-size: 1rem;
+}
+
+/* ===== Contact Form ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: auto;
+}
+form input, form textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+form button {
+  background: #ff4444;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+form button:hover {
+  background: #ff2222;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+/* ===== Modal (Login / Register) ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  animation: fadeIn 0.5s;
+}
+.modal-content h2 {
+  margin-bottom: 15px;
+  color: #ff4444;
+}
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+}
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-in-out;
+}
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Welcome Text Section ===== */
+.welcome-text {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: rgba(255, 68, 68, 0.05);
+  border-left: 5px solid #ff4444;
+  border-radius: 10px;
+  text-align: left;
+  animation: fadeIn 1.2s ease-in-out;
+}
+.welcome-text p {
+  margin-bottom: 15px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #f1f1f1;
+}
+.welcome-text p:first-letter {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff4444;
+  margin-right: 4px;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+  .navbar ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .navbar ul li {
+    width: 100%;
+  }
+  .navbar ul li a {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 60px 15px;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero button {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  /* Sections */
+  .section {
+    padding: 40px 15px;
+  }
+  .section h2 {
+    font-size: 1.5rem;
+  }
+  .section p {
+    font-size: 1rem;
+  }
+
+  /* Contact Form */
+  form {
+    width: 100%;
+    padding: 0 10px;
+  }
+  form input, form textarea, form button {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  /* Modal */
+  .modal-content {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  /* Welcome Text */
+  .welcome-text {
+    padding: 15px;
+    margin: 20px 10px;
+  }
+  .welcome-text p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Download Card */
+  .download-card {
+    max-width: 100%;
+    margin: 15px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.4rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+  .navbar .logo {
+    font-size: 1.2rem;
+  }
+  .section h2 {
+    font-size: 1.3rem;
+  }
+
+  /* Welcome Text */
+  .welcome-text {
+    padding: 12px;
+  }
+  .welcome-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
