@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tools - THE DEAD FAM</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Asimovian&display=swap" rel="stylesheet">
+
+  <style>
+    .tool-section {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .tool-section h2 {
+      color: #ff4444;
+      margin-bottom: 15px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      background: #ff4444;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #logoCanvas {
+      border: 1px solid #444;
+      margin-top: 15px;
+      background: #fff;
+    }
+    .preview {
+      margin-top: 15px;
+      background: #111;
+      padding: 15px;
+      border-radius: 6px;
+      text-align: center;
+      color: #ddd;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+    /* Custom Font Style for Page Name */
+    .page-font {
+      font-family: 'Courier New', monospace;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #ff4444;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h2 class="logo">THE DEAD FAM</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="tools.html">Tools</a></li>
+    </ul>
+  </nav>
+
+
+
+  <!-- Bio Generator with Replace -->
+  <section class="tool-section">
+    <h2>Create Bio Message</h2>
+    <input type="text" id="bioPage" placeholder="Enter Page Name">
+    <button onclick="generateBio()">Generate Bio</button>
+    <div class="preview" id="bioPreview">Your bio will appear here...</div>
+    <button onclick="copyBio()">Copy Bio</button>
+    <p>!!! When you post this bio on TikTok, it is imperative that you press the Enter button and move the lines down.</p>
+  </section>
+
+  <!-- Logo Generator (560x560) -->
+<section class="tool-section">
+  <h2>Create Logo with PNG Template (560x560)</h2>
+  <input type="text" id="pageName2" placeholder="Enter Page Name">
+  <input type="text" id="adminName2" placeholder="Enter Admin Name">
+  <button onclick="generateLogo2()">Generate Logo</button>
+  <canvas id="logoCanvas2" width="560" height="560"></canvas>
+  <br>
+  <button onclick="downloadLogo2()">Download Logo</button>
+</section>
+  <script>
+
+    // ===== Bio Message Generator =====
+    function generateBio() {
+      const page = document.getElementById("bioPage").value;
+
+      const template = `
+        <span class="page-font">${page}</span>
+        𝐒𝐢𝐥𝐞𝐧𝐭 𝐊𝐢𝐧𝐠𝐬 𝐨𝐟 𝐭𝐡𝐞 𝐔𝐧𝐝𝐞𝐫𝐠𝐫𝐨𝐮𝐧𝐝
+        ⚔
+        𝑻𝒉𝒆 𝑫𝒆𝒂𝒅 𝑭𝒂𝒎
+      `;
+
+      document.getElementById("bioPreview").innerHTML = template;
+    }
+
+    function copyBio() {
+      const text = document.getElementById("bioPreview").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Bio copied to clipboard!");
+      });
+    }
+
+  // ===== Logo Generator (560x560 with Asimovian Font) =====
+  function generateLogo2() {
+    const pageName = document.getElementById("pageName2").value;
+    const adminName = document.getElementById("adminName2").value;
+    const canvas = document.getElementById("logoCanvas2");
+    const ctx = canvas.getContext("2d");
+
+    const template = new Image();
+    template.src = "logo-template.png"; // <-- use your PNG template (560x560)
+    template.onload = function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(template, 0, 0, canvas.width, canvas.height);
+
+      // Page Name (Asimovian font, Red Bold)
+      ctx.font = "bold 42px 'Asimovian', sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.fillText(pageName, canvas.width / 2, 330);
+
+      // Admin Name (White, Arial)
+      ctx.font = "26px Arial";
+      ctx.fillStyle = "#fff";
+      ctx.fillText("ADMIN : " + adminName, canvas.width / 2, 480);
+    }
+  }
+
+  function downloadLogo2() {
+    const canvas = document.getElementById("logoCanvas2");
+    const link = document.createElement("a");
+    link.download = "custom-logo-560.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
+</script>
+
+  <footer>
+    <p>© 2025 THE DEAD FAM | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
