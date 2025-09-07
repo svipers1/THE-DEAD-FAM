@@ -1,171 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Logo Maker - THE DEAD FAM</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Site base styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts (includes "Asimovian" + popular display fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Asimovian:wght@400;700&family=Anton&family=Audiowide&family=Bebas+Neue&family=Montserrat:wght@700;900&family=Orbitron:wght@600;800&family=Oswald:wght@600&family=Poppins:wght@700;900&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background: #111;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    h1 {
-      margin-top: 20px;
-      color: #ff4444;
-    }
-    .tool-section {
-      max-width: 900px;
+    /* Page-specific styling (keeps your site theme) */
+    .maker-wrap {
+      max-width: 1000px;
       margin: 40px auto;
-      background: #222;
+      background: #1b1b1b;
+      border-radius: 14px;
       padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .maker-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+    }
+    .panel {
+      background: #222;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      padding: 16px;
     }
-    .templates {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
+    .panel h3 {
+      color: #ff4444;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      letter-spacing: .3px;
     }
-    .templates img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border: 3px solid #444;
+    .controls label {
+      display: block;
+      font-size: .95rem;
+      color: #ddd;
+      margin: 10px 0 6px;
+    }
+    .controls input[type="text"],
+    .controls select,
+    .controls input[type="color"],
+    .controls input[type="range"],
+    .controls button {
+      width: 100%;
+      background: #111;
+      color: #eee;
+      border: 1px solid #333;
       border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
+      padding: 10px 12px;
+      outline: none;
     }
-    .templates img:hover {
-      border-color: #ff4444;
-      transform: scale(1.05);
+    .controls input[type="range"] {
+      padding: 6px;
     }
-    canvas {
-      border: 2px solid #444;
-      margin-top: 20px;
-      background: #000;
+    .controls .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .controls .row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    #canvasWrap {
+      display: grid;
+      place-items: center;
+      background: #0e0e0e;
+      border: 1px dashed #333;
       border-radius: 12px;
+      padding: 12px;
     }
-    input, select, button {
-      padding: 10px;
-      margin: 8px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
+    #logoCanvas {
+      background: #fff;
+      border-radius: 10px;
+      display: block;
+      width: 560px;
+      height: 560px;
+      image-rendering: crisp-edges;
+      image-rendering: -webkit-optimize-contrast;
     }
-    button {
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .actions button {
       background: #ff4444;
-      color: #fff;
-      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
       cursor: pointer;
-      transition: 0.3s;
+      color: #fff;
+      font-weight: 600;
+      transition: .25s;
     }
-    button:hover {
-      background: #cc0000;
+    .actions button:hover { background: #ff2222; }
+    .hint {
+      font-size: .9rem;
+      color: #aaa;
+      margin-top: 6px;
+    }
+
+    /* Template thumbnails */
+    .thumbs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .thumbs img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #333;
+      cursor: pointer;
+      transition: .2s;
+      background: #111;
+    }
+    .thumbs img:hover { transform: translateY(-2px); }
+    .thumbs img.active { outline: 2px solid #ff4444; }
+
+    @media (max-width: 980px) {
+      .maker-grid { grid-template-columns: 1fr; }
+      #logoCanvas { width: 100%; height: auto; }
     }
   </style>
 </head>
 <body>
-  <h1>🔥 THE DEAD FAM - Logo Maker 🔥</h1>
+  <!-- Navbar (keeps your site nav) -->
+  <nav class="navbar">
+    <h2 class="logo">THE DEAD FAM</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="logo-maker.html">Logo Maker</a></li>
+    </ul>
+  </nav>
 
-  <section class="tool-section">
-    <h2>Select a Template</h2>
-    <div class="templates" id="templateList"></div>
+  <section class="maker-wrap">
+    <h2 style="text-align:center; color:#ff6161; margin-bottom:14px;">Logo Maker (560×560)</h2>
+    <p class="hint" style="text-align:center;">
+      Templates 10ක් අතරින් තේරෙන්න. Page Name / Admin Name, Font, Color, Size, Position adjust කරලා Preview → Download කරන්න.
+    </p>
 
-    <h2>Customize Your Logo</h2>
-    <input type="text" id="pageName" placeholder="Enter Page Name">
-    <input type="text" id="adminName" placeholder="Enter Admin Name">
-    <select id="fontSelect">
-      <option value="Asimovian, sans-serif">Asimovian</option>
-      <option value="Arial">Arial</option>
-      <option value="Courier New">Courier New</option>
-      <option value="Impact">Impact</option>
-      <option value="Georgia">Georgia</option>
-    </select>
-    <br>
-    <button onclick="generateLogo()">Generate Logo</button>
-    <br>
-    <canvas id="logoCanvas" width="560" height="560"></canvas>
-    <br>
-    <button onclick="downloadLogo()">Download Logo</button>
+    <div class="maker-grid">
+      <!-- Canvas / Preview -->
+      <div class="panel">
+        <h3>Preview</h3>
+        <div id="canvasWrap">
+          <canvas id="logoCanvas" width="560" height="560"></canvas>
+        </div>
+        <div class="actions">
+          <button id="btnRender">Render / Refresh</button>
+          <button id="btnDownload">Download PNG</button>
+          <button id="btnClear">Clear Text</button>
+        </div>
+        <p class="hint">Tip: Template එකේ bottom label ඉන්නේ නම් Page Name Y / Admin Y sliders වලින් තැන හොයාගන්න.</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="panel controls">
+        <h3>Template</h3>
+        <label for="templateSelect">Choose Template</label>
+        <select id="templateSelect">
+          <option value="t1.png">Template 01</option>
+          <option value="t2.png">Template 02</option>
+          <option value="t3.png">Template 03</option>
+          <option value="t4.png">Template 04</option>
+          <option value="t5.png">Template 05</option>
+          <option value="t6.png">Template 06</option>
+          <option value="t7.png">Template 07</option>
+          <option value="t8.png">Template 08</option>
+          <option value="t9.png">Template 09</option>
+          <option value="t10.png">Template 10</option>
+        </select>
+
+        <div class="thumbs" id="thumbs"></div>
+
+        <h3 style="margin-top:14px;">Text</h3>
+        <label for="pageName">Page Name</label>
+        <input type="text" id="pageName" placeholder="e.g. DEAD FAM" />
+
+        <label for="adminName">Admin Name</label>
+        <input type="text" id="adminName" placeholder="e.g. Sathsara" />
+
+        <div class="row">
+          <div>
+            <label for="fontFamily">Font Family</label>
+            <select id="fontFamily">
+              <option value="'Asimovian', sans-serif">Asimovian</option>
+              <option value="'Bebas Neue', cursive">Bebas Neue</option>
+              <option value="'Anton', sans-serif">Anton</option>
+              <option value="'Montserrat', sans-serif">Montserrat Bold</option>
+              <option value="'Poppins', sans-serif">Poppins Heavy</option>
+              <option value="'Oswald', sans-serif">Oswald</option>
+              <option value="'Orbitron', sans-serif">Orbitron</option>
+              <option value="'Audiowide', cursive">Audiowide</option>
+              <option value="'Rajdhani', sans-serif">Rajdhani</option>
+              <option value="Arial, sans-serif">Arial</option>
+            </select>
+          </div>
+          <div>
+            <label for="fontWeight">Weight</label>
+            <select id="fontWeight">
+              <option value="700" selected>Bold</option>
+              <option value="800">Extra Bold</option>
+              <option value="900">Black</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="pageColor">Page Name Color</label>
+            <input type="color" id="pageColor" value="#ff4444" />
+          </div>
+          <div>
+            <label for="adminColor">Admin Color</label>
+            <input type="color" id="adminColor" value="#ffffff" />
+          </div>
+        </div>
+
+        <div class="row-3">
+          <div>
+            <label for="pageSize">Page Size</label>
+            <input type="range" id="pageSize" min="20" max="80" value="42" />
+          </div>
+          <div>
+            <label for="adminSize">Admin Size</label>
+            <input type="range" id="adminSize" min="16" max="60" value="26" />
+          </div>
+          <div>
+            <label for="strokeWidth">Outline</label>
+            <input type="range" id="strokeWidth" min="0" max="8" value="2" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="pageY">Page Name Y</label>
+            <input type="range" id="pageY" min="60" max="540" value="400" />
+          </div>
+          <div>
+            <label for="adminY">Admin Y</label>
+            <input type="range" id="adminY" min="60" max="540" value="460" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label><input type="checkbox" id="uppercase" /> Uppercase Page</label>
+          </div>
+          <div>
+            <label><input type="checkbox" id="shadow" checked /> Text Shadow</label>
+          </div>
+        </div>
+
+        <p class="hint">Note: Templates png files place @ <code>assets/templates/t1.png ... t10.png</code> (560×560)</p>
+      </div>
+    </div>
   </section>
 
+  <footer>
+    <p>© 2025 THE DEAD FAM | All Rights Reserved</p>
+  </footer>
+
   <script>
-    // === Templates list ===
-    const templates = [
-      "templates/template1.png",
-      "templates/template2.png",
-      "templates/template3.png",
-      "templates/template4.png",
-      "templates/template5.png",
-      "templates/template6.png",
-      "templates/template7.png",
-      "templates/template8.png",
-      "templates/template9.png",
-      "templates/template10.png"
-    ];
+    // ====== Helpers ======
+    const $ = (s) => document.querySelector(s);
+    const canvas = $("#logoCanvas");
+    const ctx = canvas.getContext("2d");
 
-    let selectedTemplate = null;
+    // Handle HiDPI (retina) for crisp export
+    (function scaleForDPR() {
+      const dpr = window.devicePixelRatio || 1;
+      if (dpr !== 1) {
+        const w = canvas.width, h = canvas.height;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        canvas.style.width = w + "px";
+        canvas.style.height = h + "px";
+        ctx.scale(dpr, dpr);
+      }
+    })();
 
-    // Show template previews
-    const templateList = document.getElementById("templateList");
-    templates.forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      img.onclick = () => {
-        selectedTemplate = src;
-        document.querySelectorAll(".templates img").forEach(i => i.style.borderColor = "#444");
-        img.style.borderColor = "#ff4444";
-      };
-      templateList.appendChild(img);
+    // ====== Template management ======
+    const TEMPLATE_PATH = "assets/templates/";
+    const templateSelect = $("#templateSelect");
+    const thumbs = $("#thumbs");
+    const templateFiles = ["t1.png","t2.png","t3.png","t4.png","t5.png","t6.png","t7.png","t8.png","t9.png","t10.png"];
+    const images = {};
+
+    // Build thumbnails + preload
+    templateFiles.forEach((file, i) => {
+      const img = new Image();
+      img.src = TEMPLATE_PATH + file;
+      images[file] = img;
+
+      const tn = new Image();
+      tn.src = img.src;
+      tn.alt = "Template " + (i+1);
+      tn.addEventListener("click", () => {
+        templateSelect.value = file;
+        [...thumbs.children].forEach(ch => ch.classList.remove("active"));
+        tn.classList.add("active");
+        render();
+      });
+      thumbs.appendChild(tn);
     });
+    // Active state for first thumb after load
+    setTimeout(() => thumbs.firstElementChild?.classList.add("active"), 300);
 
-    // Generate logo
-    function generateLogo() {
-      const pageName = document.getElementById("pageName").value;
-      const adminName = document.getElementById("adminName").value;
-      const font = document.getElementById("fontSelect").value;
+    // ====== Inputs ======
+    const pageNameEl = $("#pageName");
+    const adminNameEl = $("#adminName");
+    const fontFamilyEl = $("#fontFamily");
+    const fontWeightEl = $("#fontWeight");
+    const pageColorEl = $("#pageColor");
+    const adminColorEl = $("#adminColor");
+    const pageSizeEl = $("#pageSize");
+    const adminSizeEl = $("#adminSize");
+    const strokeWidthEl = $("#strokeWidth");
+    const pageYEl = $("#pageY");
+    const adminYEl = $("#adminY");
+    const uppercaseEl = $("#uppercase");
+    const shadowEl = $("#shadow");
 
-      const canvas = document.getElementById("logoCanvas");
-      const ctx = canvas.getContext("2d");
+    // Defaults
+    pageNameEl.value = "DEAD FAM";
+    adminNameEl.value = "Sathsara";
 
-      if (!selectedTemplate) {
-        alert("⚠️ Please select a template!");
-        return;
+    // ====== Draw text with optional outline & shadow ======
+    function drawText(txt, x, y, color, size, weight, family, align = "center", strokeWidth = 0) {
+      ctx.textAlign = align;
+      ctx.textBaseline = "middle";
+      ctx.font = `${weight} ${size}px ${family}`;
+      if (shadowEl.checked) {
+        ctx.shadowColor = "rgba(0,0,0,.65)";
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 2;
+      } else {
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+      }
+      if (strokeWidth > 0) {
+        ctx.lineWidth = strokeWidth;
+        ctx.strokeStyle = "rgba(0,0,0,.85)";
+        ctx.strokeText(txt, x, y);
+      }
+      ctx.fillStyle = color;
+      ctx.fillText(txt, x, y);
+    }
+
+    // ====== Render ======
+    function render() {
+      // clear + draw template
+      ctx.clearRect(0, 0, 560, 560);
+      const file = templateSelect.value;
+      const bg = images[file];
+      if (bg && bg.complete) {
+        ctx.drawImage(bg, 0, 0, 560, 560);
+      } else {
+        // fallback if not loaded yet
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0,0,560,560);
       }
 
-      const template = new Image();
-      template.src = selectedTemplate;
-      template.onload = function () {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(template, 0, 0, canvas.width, canvas.height);
+      // inputs
+      let pageText = pageNameEl.value || "";
+      if (uppercaseEl.checked) pageText = pageText.toUpperCase();
+      const adminText = adminNameEl.value ? ("ADMIN : " + adminNameEl.value) : "";
 
-        // Page name
-        ctx.font = `bold 42px ${font}`;
-        ctx.fillStyle = "#ff4444";
-        ctx.textAlign = "center";
-        ctx.fillText(pageName, canvas.width / 2, 460);
+      const fam = fontFamilyEl.value;
+      const weight = fontWeightEl.value;
 
-        // Admin name
-        ctx.font = `28px ${font}`;
-        ctx.fillStyle = "#fff";
-        ctx.fillText("ADMIN : " + adminName, canvas.width / 2, 510);
-      };
+      const pSize = parseInt(pageSizeEl.value, 10);
+      const aSize = parseInt(adminSizeEl.value, 10);
+      const pY = parseInt(pageYEl.value, 10);
+      const aY = parseInt(adminYEl.value, 10);
+      const stroke = parseInt(strokeWidthEl.value, 10);
+
+      // Page Name (replace for templates like DEAD FAM area)
+      drawText(pageText, 280, pY, pageColorEl.value, pSize, weight, fam, "center", stroke);
+
+      // Admin line (replace for OWNER: Chooty area)
+      if (adminText.trim()) {
+        drawText(adminText, 280, aY, adminColorEl.value, aSize, "700", "Arial, sans-serif", "center", stroke);
+      }
     }
 
-    // Download logo
-    function downloadLogo() {
-      const canvas = document.getElementById("logoCanvas");
+    // ====== Events ======
+    document.querySelectorAll("input, select").forEach(el => {
+      el.addEventListener("input", render);
+      el.addEventListener("change", render);
+    });
+    $("#btnRender").addEventListener("click", render);
+    $("#btnDownload").addEventListener("click", () => {
+      // Export at canvas CSS size (560x560) – already HiDPI aware
       const link = document.createElement("a");
-      link.download = "tdf-logo.png";
-      link.href = canvas.toDataURL();
+      link.download = (pageNameEl.value || "logo") + ".png";
+      // If canvas scaled for DPR, toDataURL still returns full-res
+      link.href = canvas.toDataURL("image/png");
       link.click();
-    }
+    });
+    $("#btnClear").addEventListener("click", () => {
+      pageNameEl.value = "";
+      adminNameEl.value = "";
+      render();
+    });
+
+    // Initial render after first template is somewhat loaded
+    window.addEventListener("load", () => setTimeout(render, 300));
   </script>
 </body>
 </html>
