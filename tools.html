@@ -1,120 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Tools - THE DEAD FAM</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Asimovian&display=swap" rel="stylesheet">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    .tool-section {
-      max-width: 700px;
-      margin: 40px auto;
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
+    /* Page wrapper */
+    .tools-wrap {
+      min-height: calc(100vh - 120px);
+      display: grid;
+      place-items: center;
+      padding: 40px 16px;
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(255,68,68,.08), transparent),
+                  radial-gradient(900px 500px at 90% 100%, rgba(255,68,68,.06), transparent);
     }
-    .tool-section h2 {
-      color: #ff4444;
-      margin-bottom: 15px;
-    }
-    input, textarea {
+
+    /* Card container */
+    .cta-card {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: none;
+      max-width: 900px;
+      background: rgba(34,34,34,.9);
+      border: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      animation: cardIn .6s ease;
     }
-    button {
-      background: #ff4444;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    #logoCanvas {
-      border: 1px solid #444;
-      margin-top: 15px;
-      background: #fff;
-    }
-    .preview {
-      margin-top: 15px;
-      background: #111;
-      padding: 15px;
-      border-radius: 6px;
+
+    .cta-head {
       text-align: center;
-      color: #ddd;
-      font-size: 1.1rem;
-      line-height: 1.8;
-      white-space: pre-line;
+      margin-bottom: 18px;
     }
-    /* Custom Font Style for Page Name */
-    .page-font {
-      font-family: 'Courier New', monospace;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #ff4444;
+    .cta-head h1 {
+      font-size: 1.9rem;
+      letter-spacing: .4px;
+    }
+    .cta-head p {
+      color: #bdbdbd;
+      margin-top: 8px;
+      font-size: .98rem;
+    }
+
+    /* Grid with two big buttons */
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 720px) {
+      .cta-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Button as card */
+    .cta-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 22px 20px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      transition: transform .18s ease, box-shadow .25s ease, border-color .2s ease;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .cta-btn:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,68,68,.45);
+      box-shadow: 0 14px 34px rgba(255,68,68,.18), inset 0 0 0 1px rgba(255,68,68,.15);
+    }
+
+    /* Accent glow on hover */
+    .cta-btn::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(600px 300px at var(--mx, 0%) var(--my, 0%), rgba(255,68,68,.18), transparent 60%);
+      opacity: 0;
+      transition: opacity .2s ease;
+      z-index: 0;
+    }
+    .cta-btn:hover::after { opacity: 1; }
+
+    /* Icon circle */
+    .cta-icon {
+      width: 54px;
+      height: 54px;
+      min-width: 54px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #111;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.4);
+      z-index: 1;
+      font-size: 26px;
+    }
+
+    /* Text block */
+    .cta-text { z-index: 1; }
+    .cta-text h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #ff5a5a;
+      letter-spacing: .3px;
+    }
+    .cta-text p {
+      margin: 6px 0 0 0;
+      color: #cfcfcf;
+      font-size: .95rem;
+      line-height: 1.45;
+    }
+
+    /* Tiny arrow */
+    .cta-arrow {
+      margin-left: auto;
+      z-index: 1;
+      font-size: 18px;
+      opacity: .8;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+    .cta-btn:hover .cta-arrow {
+      transform: translateX(4px);
+      opacity: 1;
     }
   </style>
 </head>
 <body>
+  <!-- Navbar (keeps your global nav) -->
   <nav class="navbar">
     <h2 class="logo">THE DEAD FAM</h2>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="downloads.html">Dowanloads</a></li>
-      <li><a href="tools.html">Tools</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="downloads.html">Downloads</a></li>
+      <li><a href="tools.html" aria-current="page">Tools</a></li>
+       <li><a href="contact.html">Contact</a></li>
+
     </ul>
   </nav>
 
+  <main class="tools-wrap">
+    <div class="cta-card">
+      <div class="cta-head">
+        <h1>Creator Tools</h1>
+        <p>ඔයාගේ TDF brand එකට ගැලපෙන Logo සහ Bio text එක seconds කින් generate කරගමු.</p>
+      </div>
 
+      <div class="cta-grid">
+        <!-- Button 1: Logo Maker -->
+        <a class="cta-btn" href="create-logo.html"
+           onmousemove="this.style.setProperty('--mx', (event.offsetX/this.clientWidth)*100+'%'); this.style.setProperty('--my', (event.offsetY/this.clientHeight)*100+'%');">
+          <div class="cta-icon">🎨</div>
+          <div class="cta-text">
+            <h3>Get your TDF Logo</h3>
+            <p>560×560 templates 10+ තුළින් තේරෙන්න. Page name, Admin name, font, color, position customize කර PNG download කරන්න.</p>
+          </div>
+          <div class="cta-arrow">➜</div>
+        </a>
 
-  <!-- Bio Generator with Replace -->
-  <section class="tool-section">
-    <h2>Create Bio Message</h2>
-    <input type="text" id="bioPage" placeholder="Enter Page Name">
-    <button onclick="generateBio()">Generate Bio</button>
-    <div class="preview" id="bioPreview">Your bio will appear here...</div>
-    <button onclick="copyBio()">Copy Bio</button>
-    <p>!!! When you post this bio on TikTok, it is imperative that you press the Enter button and move the lines down.</p>
-  </section>
-
-
-  <script>
-
-    // ===== Bio Message Generator =====
-    function generateBio() {
-      const page = document.getElementById("bioPage").value;
-
-      const template = `
-        <span class="page-font">${page}</span>
-        𝐒𝐢𝐥𝐞𝐧𝐭 𝐊𝐢𝐧𝐠𝐬 𝐨𝐟 𝐭𝐡𝐞 𝐔𝐧𝐝𝐞𝐫𝐠𝐫𝐨𝐮𝐧𝐝
-        ⚔
-        𝑻𝒉𝒆 𝑫𝒆𝒂𝒅 𝑭𝒂𝒎
-      `;
-
-      document.getElementById("bioPreview").innerHTML = template;
-    }
-
-    function copyBio() {
-      const text = document.getElementById("bioPreview").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Bio copied to clipboard!");
-      });
-    }
-
-
-</script>
+        <!-- Button 2: Bio Maker -->
+        <a class="cta-btn" href="create-logo.html"
+           onmousemove="this.style.setProperty('--mx', (event.offsetX/this.clientWidth)*100+'%'); this.style.setProperty('--my', (event.offsetY/this.clientHeight)*100+'%');">
+          <div class="cta-icon">📝</div>
+          <div class="cta-text">
+            <h3>Get your TDF Bio</h3>
+            <p>ඔයාගේ Page name එක insert කරලා styled TDF bio lines 4ක් instant generate කර copy කරගන්න.</p>
+          </div>
+          <div class="cta-arrow">➜</div>
+        </a>
+      </div>
+    </div>
+  </main>
 
   <footer>
     <p>© 2025 THE DEAD FAM | All Rights Reserved</p>
   </footer>
+
+  <script>
+    // Optional: improve glow follows cursor on touch by centering it
+    document.querySelectorAll('.cta-btn').forEach(btn => {
+      btn.addEventListener('touchstart', () => {
+        btn.style.setProperty('--mx', '50%');
+        btn.style.setProperty('--my', '50%');
+      }, {passive:true});
+    });
+  </script>
 </body>
 </html>
-
-
