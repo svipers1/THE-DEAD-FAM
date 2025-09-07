@@ -66,8 +66,9 @@
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="downloads.html">Dowanloads</a></li>
       <li><a href="tools.html">Tools</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
@@ -107,39 +108,7 @@
       });
     }
 
-  // ===== Logo Generator (560x560 with Asimovian Font) =====
-  function generateLogo2() {
-    const pageName = document.getElementById("pageName2").value;
-    const adminName = document.getElementById("adminName2").value;
-    const canvas = document.getElementById("logoCanvas2");
-    const ctx = canvas.getContext("2d");
 
-    const template = new Image();
-    template.src = "logo-template.png"; // <-- use your PNG template (560x560)
-    template.onload = function() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(template, 0, 0, canvas.width, canvas.height);
-
-      // Page Name (Asimovian font, Red Bold)
-      ctx.font = "bold 42px 'Asimovian', sans-serif";
-      ctx.fillStyle = "#ffffff";
-      ctx.textAlign = "center";
-      ctx.fillText(pageName, canvas.width / 2, 330);
-
-      // Admin Name (White, Arial)
-      ctx.font = "26px Arial";
-      ctx.fillStyle = "#fff";
-      ctx.fillText("ADMIN : " + adminName, canvas.width / 2, 480);
-    }
-  }
-
-  function downloadLogo2() {
-    const canvas = document.getElementById("logoCanvas2");
-    const link = document.createElement("a");
-    link.download = "custom-logo-560.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  }
 </script>
 
   <footer>
@@ -147,4 +116,5 @@
   </footer>
 </body>
 </html>
+
 
